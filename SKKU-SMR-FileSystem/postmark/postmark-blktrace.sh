@@ -1,17 +1,14 @@
 #!/bin/bash
 
-umount /mnt/smr
-umount /dev/sda1
-
-mkfs.ext4 -E lazy_itable_init=0,lazy_journal_init=0 -J size=10240 /dev/sda1
-mount -t ext4 /dev/sda1 /mnt/smr
-echo 50 > /sys/class/bdi/8\:0/max_ratio
-echo 50 > /sys/class/bdi/8\:0/min_ratio
-echo 3 > /proc/sys/vm/drop_caches
-
-sleep 2h
-
-./pm < pm.conf >> pm_new_ext4-lazy_2
+./pm < pm.conf >> ./result/blktrace/ext4-lazy/pm_ext4-lazy_2
 kill -2 `ps -ef | grep "trace-cmd" | grep -v grep | awk '{print $2}'`
+
+cd result/blktrace/ext4-lazy
+blkparse -t sda.blktrace.* >> ext4-lazy.blktrace
+cd ../../../
+
+python trace2sect.py ./result/blktrace/ext4/ext4.blktrace temp-data
+python mkfigure.py temp-data ./graph/blktrace-ext4-lazy
+
 
 echo "benchmark is completed" | mutt -s "benchmark complete" yhcha77@gmail.com

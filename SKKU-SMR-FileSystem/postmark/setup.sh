@@ -8,3 +8,5 @@ sudo ./configure
 sudo make
 sudo make install
 cd ..
+
+sudo apt-get install mutt -y

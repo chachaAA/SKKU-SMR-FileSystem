@@ -21,7 +21,7 @@ def parse(data) :
 		start_time = x
 	x -= start_time
 
-	y = int(ret[0])
+	y = int(ret[0])/2/1024
 
 	if 'M' in ret[3] :
 		c = 'r'
@@ -34,9 +34,8 @@ x_data = list()
 y_data = list()
 c_data = list()
 
-x_data1 = list()
-y_data1 = list()
-c_data1 = list()
+x_lim = 0
+y_lim = 0
 
 if len(sys.argv) == 1:
 	print "NO ARGUMENT ERROR"
@@ -55,13 +54,15 @@ while 1 :
 	if (x == -1) :
 		continue
 
-	#if y < 83886080 :
+	if float(x) > float(x_lim) :
+		x_lim = x
+
+	if float(y) > float(y_lim) :
+		y_lim = y
+
 	x_data.append(x)
-	y_data.append(y/2/1024)
+	y_data.append(y)
 	c_data.append(c)
-	# else :
-	# 	x_data1.append(x)
-	# 	y_data1.append(y/2/1024)
 
 font = {'family': 'serif',
         'color':  'black',
@@ -69,24 +70,10 @@ font = {'family': 'serif',
         'size': 18,
         }
 
-# plt.subplot(211)
-plt.xlim(0, 3000)
+plt.xlim(0, x_lim)
+plt.ylim(0, y_lim)
 plt.scatter(x_data, y_data, s=1, color=c_data, alpha=1, marker='s')
 plt.xlabel('Time (s)', fontdict=font)
 plt.ylabel('Disk Offset (KiB)', fontdict=font)
 
-# plt.subplot(212)
-# plt.xlim(0, 280)
-# plt.scatter(x_data1, y_data1, s=1, c='k', alpha=1, marker='s')
-# plt.xlabel('Time (s)', fontdict=font)
-# plt.ylabel('Disk Offset (KiB)', fontdict=font)
-
-#plt.show()
 plt.savefig(sys.argv[2] + '.png', format='png')
-
-# print "data size :", data_size*512/1024/1024.0
-# print "metadata size :", metadata_size*512/1024/1024.0
-# print "journal size :", journal_size*512/1024/1024.0
-
-# print ""
-# print "x :", x_lim[0], ":", x_lim[1] 
