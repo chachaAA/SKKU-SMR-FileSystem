@@ -1,0 +1,25 @@
+PostMark v1.5 : 3/27/01
+pm>pm>Creating subdirectories...Done
+Creating files...Done
+Sync...Done
+Performing transactions..........Done
+Sync...Done
+Deleting subdirectories...Done
+Time:
+	780 seconds total
+	663 seconds of transactions (150 per second)
+
+Files:
+	59841 created (76 per second)
+		Creation alone: 10000 files (208 per second)
+		Mixed with transactions: 49841 files (75 per second)
+	49948 read (75 per second)
+	50030 appended (75 per second)
+	59841 deleted (76 per second)
+		Deletion alone: 17392 files (252 per second)
+		Mixed with transactions: 32767 files (49 per second)
+
+Data:
+	32297.26 megabytes read (41.41 megabytes per second)
+	38799.79 megabytes written (49.74 megabytes per second)
+pm>
